@@ -10,6 +10,8 @@ class Heap
 
   def pop
     return nil if @tree.empty?
+    return @tree.pop if @tree.size == 1
+
     top = @tree.first
     @tree[0] = @tree.pop
     i = 0
