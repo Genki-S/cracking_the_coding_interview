@@ -1,7 +1,10 @@
 class Heap
-  def initialize(&comparator)
+  def initialize(data = [], &comparator)
     @tree = []
     @comp = comparator
+    data.each do |datum|
+      self.push(datum)
+    end
   end
 
   def top
@@ -38,6 +41,15 @@ class Heap
     @tree.empty?
   end
 
+  def to_a
+    clone = Heap.new(@tree, &@comp)
+    array = []
+    while clone.size > 0
+      array << clone.pop
+    end
+    array
+  end
+
   def print_tree
     recursive_print(0, 0)
   end
@@ -72,12 +84,14 @@ class Heap
   end
 
   def push_down(i)
-    if left(i) && !comp(@tree[i], @tree[left(i)])
-      swap(i, left(i))
-      return left(i)
-    elsif right(i) && !comp(@tree[i], @tree[right(i)])
-      swap(i, right(i))
-      return right(i)
+    target_i = if left(i) && right(i)
+                 comp(@tree[left(i)], @tree[right(i)]) ? left(i) : right(i)
+               else
+                 left(i)
+               end
+    if target_i && !comp(@tree[i], @tree[target_i])
+      swap(i, target_i)
+      return target_i
     else
       return nil
     end
