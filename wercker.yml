@@ -4,4 +4,4 @@ build:
         - bundle-install
         - script:
             name: rspec
-            code: rspec **/*.rb
+            code: bundle exec rspec **/*.rb
