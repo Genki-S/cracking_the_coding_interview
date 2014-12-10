@@ -2,7 +2,7 @@ require 'rspec'
 require_relative './heap'
 
 describe Heap do
-  let(:data) { [7, 1, 3, 6, 5, 10, 2, 9, 8, 4] }
+  let(:data) { [*-100..100].sample(10) }
 
   before do
     data.each do |datum|

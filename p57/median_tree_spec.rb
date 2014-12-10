@@ -20,8 +20,7 @@ describe MedianTree do
   end
 
   context 'when there are odd numbers of data' do
-    # [*1..100].sample(9).shuffle
-    let(:data) { [87, 85, 97, 55, 66, 13, 32, 67, 29] }
+    let(:data) { [*-100..100].sample(9) }
 
     it 'returns median value' do
       expect(mtree.median).to eq(data.median)
@@ -29,7 +28,7 @@ describe MedianTree do
   end
 
   context 'when there are even numbers of data' do
-    let(:data) { [87, 85, 97, 55, 66, 13, 32, 67, 29, 39] }
+    let(:data) { [*-100..100].sample(10) }
 
     it 'returns the average of 2 median numbers' do
       expect(mtree.median).to eq(data.median)
