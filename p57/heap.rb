@@ -84,14 +84,14 @@ class Heap
   end
 
   def push_down(i)
-    target_i = if left(i) && right(i)
+    candidate_i = if left(i) && right(i)
                  comp(@tree[left(i)], @tree[right(i)]) ? left(i) : right(i)
                else
                  left(i)
                end
-    if target_i && !comp(@tree[i], @tree[target_i])
-      swap(i, target_i)
-      return target_i
+    if candidate_i && !comp(@tree[i], @tree[candidate_i])
+      swap(i, candidate_i)
+      return candidate_i
     else
       return nil
     end
