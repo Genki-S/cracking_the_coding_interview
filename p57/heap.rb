@@ -1,10 +1,8 @@
 class Heap
   def initialize(data = [], &comparator)
-    @tree = []
+    @tree = data.dup
     @comp = comparator
-    data.each do |datum|
-      self.push(datum)
-    end
+    build_heap unless @tree.empty?
   end
 
   def top
@@ -103,6 +101,13 @@ class Heap
       return parent(i)
     else
       return nil
+    end
+  end
+
+  def build_heap
+    initialize_start_index = @tree.size / 2
+    initialize_start_index.downto(0).each do |i|
+      push_down(i)
     end
   end
 
