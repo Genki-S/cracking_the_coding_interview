@@ -2,8 +2,8 @@ require_relative './heap'
 
 class MedianTree
   def initialize
-    @large_heap = Heap.new(&:<)
-    @small_heap = Heap.new(&:>)
+    @large_heap = Heap.build(&:<)
+    @small_heap = Heap.build(&:>)
   end
 
   def median

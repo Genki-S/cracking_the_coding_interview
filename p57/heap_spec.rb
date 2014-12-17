@@ -5,7 +5,7 @@ describe Heap do
   let(:data) { [*-100..100].sample(10) }
 
   context 'when it is initialized with data' do
-    subject(:heap) { Heap.new(data, &:<) }
+    subject(:heap) { Heap.build(data: data, &:<) }
 
     it 'creates a heap' do
       expect(heap.to_a).to eq(data.sort)
@@ -20,7 +20,7 @@ describe Heap do
     end
 
     context 'when it is initialized with &:<' do
-      subject(:heap) { Heap.new(&:<) }
+      subject(:heap) { Heap.build(&:<) }
 
       it 'creates a minimum heap' do
         expect(heap.to_a).to eq(data.sort)
@@ -28,7 +28,7 @@ describe Heap do
     end
 
     context 'when it is initialized with &:>' do
-      subject(:heap) { Heap.new(&:>) }
+      subject(:heap) { Heap.build(&:>) }
 
       it 'creates a maximum heap' do
         expect(heap.to_a).to eq(data.sort{ |a, b| b <=> a })
