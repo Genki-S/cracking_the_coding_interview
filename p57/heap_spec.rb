@@ -2,7 +2,8 @@ require 'rspec'
 require_relative './heap'
 
 describe Heap do
-  let(:data) { [*-100..100].sample(10) }
+  let(:data) { [*-100..100].sample(sample_size) }
+  let(:sample_size) { [*1..100].sample }
 
   context 'when it is initialized with data' do
     subject(:heap) { Heap.build(data: data, &:<) }
