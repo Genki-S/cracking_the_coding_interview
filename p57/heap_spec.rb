@@ -12,7 +12,7 @@ describe Heap do
     end
   end
 
-  context 'whne data is pushed one by one' do
+  context 'when data is pushed one by one' do
     before do
       data.each do |datum|
         heap.push(datum)
