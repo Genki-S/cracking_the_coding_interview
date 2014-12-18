@@ -44,7 +44,7 @@ class BinomialHeap < HeapBase
 
   def pop
     return nil if @head_by_order.empty?
-    # TODO: have a pointer to point minimum value node to make this methos O(1)
+    # TODO: have a pointer to point minimum value node to make this method O(1)
     target = nil
     @head_by_order.each do |order, head|
       target ||= head
