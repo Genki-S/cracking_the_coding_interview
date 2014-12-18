@@ -15,6 +15,11 @@ class Node
     @parent = nil
     @children = []
   end
+
+  PRINT_WIDTH = 5
+  def inspect
+    "%#{PRINT_WIDTH}s" % "(#{self.val.to_s})"
+  end
 end
 
 class BinomialHeap < HeapBase
@@ -89,7 +94,6 @@ class BinomialHeap < HeapBase
   end
 
   def print_tree
-    raise RuntimeError, 'TODO: make it work'
     @head_by_order.each do |order, head|
       puts "=== order: #{order} ==="
       print_recursive(head, 0)
@@ -122,12 +126,14 @@ class BinomialHeap < HeapBase
     end
   end
 
+  BRANCH_WIDTH = 3
   def print_recursive(head, depth)
-    print "-#{head.val}"
+    print " - #{head.inspect}"
     head.children.reverse.each do |child|
       print_recursive(child, depth + 1)
       puts ''
-      print ' ' * depth
+      print ' ' * BRANCH_WIDTH * depth
+      print ' ' * Node::PRINT_WIDTH * (depth + 1)
     end
   end
 end
