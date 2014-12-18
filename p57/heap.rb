@@ -1,10 +1,12 @@
 require_relative 'heap/binary_heap'
+require_relative 'heap/binomial_heap'
 
 class Heap
   class UnknownHeapTypeError < StandardError; end
 
   HEAP_CLASS_BY_TYPE = {
     binary: BinaryHeap,
+    binomial: BinomialHeap,
   }.freeze
 
   def initialize
