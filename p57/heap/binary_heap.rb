@@ -18,18 +18,14 @@ class BinaryHeap < HeapBase
     top = @tree.first
     @tree[0] = @tree.pop
     i = 0
-    while i != nil
-      i = push_down(i)
-    end
+    push_down_recursive(i)
     top
   end
 
   def push(val)
     @tree.push(val)
     i = @tree.count - 1
-    while i != nil
-      i = pop_up(i)
-    end
+    pop_up_recursive(i)
     self
   end
 
@@ -97,6 +93,12 @@ class BinaryHeap < HeapBase
     end
   end
 
+  def push_down_recursive(i)
+    while i != nil
+      i = push_down(i)
+    end
+  end
+
   def pop_up(i)
     if parent(i) && !comp(@tree[parent(i)], @tree[i])
       swap(i, parent(i))
@@ -106,10 +108,16 @@ class BinaryHeap < HeapBase
     end
   end
 
+  def pop_up_recursive(i)
+    while i != nil
+      i = pop_up(i)
+    end
+  end
+
   def build_heap
     initialize_start_index = @tree.size / 2
     initialize_start_index.downto(0).each do |i|
-      push_down(i)
+      push_down_recursive(i)
     end
   end
 
