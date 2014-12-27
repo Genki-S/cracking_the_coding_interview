@@ -34,6 +34,7 @@ class BinomialHeap < HeapBase
   end
 
   def top
+    # TODO: have a pointer to point minimum value node to make this method O(1)
     val = nil
     @head_by_order.each do |order, head|
       val ||= head.val
@@ -44,7 +45,6 @@ class BinomialHeap < HeapBase
 
   def pop
     return nil if @head_by_order.empty?
-    # TODO: have a pointer to point minimum value node to make this method O(1)
     target = nil
     @head_by_order.each do |order, head|
       target ||= head
@@ -88,7 +88,7 @@ class BinomialHeap < HeapBase
   end
 
   def merge(another_heap)
-    another_heap.each do |order, head|
+    another_heap.head_by_order.each do |order, head|
       merge_tree(head)
     end
   end
