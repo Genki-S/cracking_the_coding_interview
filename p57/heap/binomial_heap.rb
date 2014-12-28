@@ -22,6 +22,12 @@ class Node
   end
 end
 
+# Trees are stored in the form of hash { order => head } because for the same order
+# it's assured that at most one tree is associated with it.
+# Children of any node are stored in the form of array, because only operation for
+# child nodes is to merge all of them into self when the parent is removed by
+# pop method. And it does not require complex structures such as doubly linked list.
+# (it's easy to unshift children array when merging 2 trees)
 class BinomialHeap < HeapBase
   attr_reader :head_by_order
 
