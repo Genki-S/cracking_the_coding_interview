@@ -1,0 +1,27 @@
+#!/bin/bash
+
+root="$(dirname $0)/.."
+cd $root
+
+failures=0
+
+# Ruby
+echo "=================================================="
+echo "Running Ruby tests..."
+echo "=================================================="
+bundle exec rspec **/*_spec.rb
+if [ $? -ne 0 ]; then failures=$(( $failures + 1 )); fi
+
+# C
+echo "=================================================="
+echo "Running C tests..."
+echo "=================================================="
+# let's assume we have Makefiles for all tests
+makefiles=$(find . -name 'Makefile')
+for makefile in $makefiles ; do
+  cd $(dirname $makefile)
+  make test
+  if [ $? -ne 0 ]; then failures=$(( $failures + 1 )); fi
+done
+
+exit $failures

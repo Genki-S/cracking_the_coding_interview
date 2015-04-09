@@ -5,5 +5,5 @@ build:
             version: ruby-2.1.5
         - bundle-install
         - script:
-            name: rspec
-            code: bundle exec rspec **/*.rb
+            name: test all
+            code: ./bin/test_all
