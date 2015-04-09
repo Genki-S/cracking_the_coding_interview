@@ -3,7 +3,7 @@ OBJS = linked_list.o linked_list_test.o
 EXE = test.out
 
 test: $(EXE)
-	./$(EXE)
+	@./$(EXE)
 
 $(EXE): $(OBJS)
 	$(CC) $(OBJS) -o $@

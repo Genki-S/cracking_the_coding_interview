@@ -18,5 +18,5 @@ int main(int argc, char const* argv[])
   int successes = 0, failures = 0;
   _verify(testInit, successes, failures);
   printf("\n%d/%d TESTS PASSED.\n", successes, successes + failures);
-  return 0;
+  return failures ? 1 : 0;
 }
