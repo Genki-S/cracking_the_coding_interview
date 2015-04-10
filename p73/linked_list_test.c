@@ -8,8 +8,12 @@
 
 int testInit() {
   LinkedList list;
-  linkedListInit(&list);
+  linkedListInit(&list, "int");
   _assert(list.head == NULL);
+
+  LinkedList doubleList;
+  linkedListInit(&doubleList, "double");
+  _assert(doubleList.head == NULL);
   return 0;
 }
 
