@@ -8,12 +8,24 @@
 
 int testInit() {
   LinkedList list;
-  linkedListInit(&list, "int");
+  linkedListInit(&list, INTEGER);
   _assert(list.head == NULL);
+  _assert(list.tail == NULL);
 
   LinkedList doubleList;
-  linkedListInit(&doubleList, "double");
+  linkedListInit(&doubleList, DOUBLE);
   _assert(doubleList.head == NULL);
+  _assert(list.tail == NULL);
+  return 0;
+}
+
+int testAppend() {
+  LinkedList list;
+  linkedListInit(&list, INTEGER);
+  linkedListAppend(&list, (mixed)1);
+  _assert(linkedListIndexOf(&list, (mixed)1) == 0);
+  linkedListAppend(&list, (mixed)2);
+  _assert(linkedListIndexOf(&list, (mixed)2) == 1);
   return 0;
 }
 
@@ -21,6 +33,7 @@ int main(int argc, char const* argv[])
 {
   int successes = 0, failures = 0;
   _verify(testInit, successes, failures);
+  _verify(testAppend, successes, failures);
   printf("\n%d/%d TESTS PASSED.\n", successes, successes + failures);
   return failures ? 1 : 0;
 }

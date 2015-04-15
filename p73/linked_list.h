@@ -11,6 +11,11 @@
 
 #ifndef __LINKED_LIST_H__
 
+typedef enum valueType {
+  INTEGER,
+  DOUBLE
+} valueType;
+
 typedef union mixed {
   int intVal;
   double doubleVal;
@@ -25,21 +30,24 @@ struct Node {
 typedef struct LinkedList LinkedList;
 struct LinkedList {
   Node* head;
+  Node* tail;
 };
 
-// returns -1 for unsuccessful init
-int linkedListInit(LinkedList* list, char* type);
+void printLinkedList(LinkedList *list);
 
-void linkedListAppend(LinkedList* list, int value);
+// returns -1 for unsuccessful init
+int linkedListInit(LinkedList* list, valueType type);
+
+void linkedListAppend(LinkedList* list, mixed value);
 
 // returns 0 for failure, 1 for success.
-int linkedListInsert(LinkedList* list, int index, int value);
+int linkedListInsert(LinkedList* list, int index, mixed value);
 
-// returns -1 if the value was not found.
-int linkedListIndexOf(LinkedList* list, int value);
+// returns the first index of the value found, or -1 if the value is not found.
+int linkedListIndexOf(LinkedList* list, mixed value);
 
 // returns deleted value.
-int linkedListDeleteAtIndex(LinkedList* list, int value);
+int linkedListDeleteAtIndex(LinkedList* list, mixed value);
 
 #define __LINKED_LIST_H__
 #endif
