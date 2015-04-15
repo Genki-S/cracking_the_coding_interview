@@ -29,11 +29,30 @@ int testAppend() {
   return 0;
 }
 
+int testInsert() {
+  LinkedList list;
+  linkedListInit(&list, INTEGER);
+
+  _assert(linkedListInsert(&list, 1, (mixed)1) == 1); // it succeeds
+  // 1
+  _assert(linkedListIndexOf(&list, (mixed)1) == 0);
+  _assert(linkedListInsert(&list, 0, (mixed)2) == 1); // it succeeds
+  // 2 -> 1
+  _assert(linkedListIndexOf(&list, (mixed)2) == 0);
+  _assert(linkedListInsert(&list, 1, (mixed)3) == 1); // it succeeds
+  // 2 -> 3 -> 1
+  _assert(linkedListIndexOf(&list, (mixed)2) == 0);
+  _assert(linkedListIndexOf(&list, (mixed)3) == 1);
+  _assert(linkedListIndexOf(&list, (mixed)1) == 2);
+  return 0;
+}
+
 int main(int argc, char const* argv[])
 {
   int successes = 0, failures = 0;
   _verify(testInit, successes, failures);
   _verify(testAppend, successes, failures);
+  _verify(testInsert, successes, failures);
   printf("\n%d/%d TESTS PASSED.\n", successes, successes + failures);
   return failures ? 1 : 0;
 }

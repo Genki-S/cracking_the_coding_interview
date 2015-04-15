@@ -76,6 +76,31 @@ void linkedListAppend(LinkedList* list, mixed value) {
   }
 }
 
+int linkedListInsert(LinkedList* list, int index, mixed value) {
+  assert(index >= 0);
+  Node* p = list->head;
+  int i = 0;
+  while (p != NULL && i != index) {
+    p = p->next;
+    ++i;
+  }
+  if (p == NULL) {
+    linkedListAppend(list, value);
+    return 1;
+  }
+  Node* n = (Node*)malloc(sizeof(Node));
+  n->val = value;
+  n->prev = p->prev;
+  n->next = p;
+  p->prev = n;
+  if (n->prev != NULL) {
+    n->prev->next = n;
+  } else {
+    list->head = n;
+  }
+  return 1;
+}
+
 int linkedListIndexOf(LinkedList* list, mixed value) {
   Node* p = list->head;
   int i = 0;
