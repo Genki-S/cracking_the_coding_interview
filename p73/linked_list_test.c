@@ -11,11 +11,13 @@ int testInit() {
   linkedListInit(&list, INTEGER);
   _assert(list.head == NULL);
   _assert(list.tail == NULL);
+  _assert(list.valueType == INTEGER);
 
   LinkedList doubleList;
   linkedListInit(&doubleList, DOUBLE);
   _assert(doubleList.head == NULL);
-  _assert(list.tail == NULL);
+  _assert(doubleList.tail == NULL);
+  _assert(doubleList.valueType == DOUBLE);
   return 0;
 }
 

@@ -11,32 +11,33 @@
 
 #ifndef __LINKED_LIST_H__
 
-typedef enum valueType {
+typedef enum {
   INTEGER,
   DOUBLE
-} valueType;
+} _valueType;
 
 typedef union mixed {
-  int intVal;
-  double doubleVal;
+  int intValue;
+  double doubleValue;
 } mixed;
 
 typedef struct Node Node;
 struct Node {
   Node *prev, *next;
-  mixed val;
+  mixed value;
 };
 
 typedef struct LinkedList LinkedList;
 struct LinkedList {
   Node* head;
   Node* tail;
+  _valueType valueType;
 };
 
 void printLinkedList(LinkedList *list);
 
 // returns -1 for unsuccessful init
-int linkedListInit(LinkedList* list, valueType type);
+int linkedListInit(LinkedList* list, _valueType type);
 
 void linkedListAppend(LinkedList* list, mixed value);
 
