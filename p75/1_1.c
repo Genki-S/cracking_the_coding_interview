@@ -6,14 +6,14 @@
 
 #define STRING_MAX_LENGTH 1024
 
-void _swap(char* a, char* b) {
+static void _swap(char* a, char* b) {
   if (a == b) { return; }
   *a = (*a) ^ (*b);
   *b = (*a) ^ (*b);
   *a = (*a) ^ (*b);
 }
 
-void _quicksort(char* arr, int l, int r) {
+static void _quicksort(char* arr, int l, int r) {
   if (!(l < r)) { return; }
 
   int pivot_i;
@@ -39,12 +39,12 @@ void _quicksort(char* arr, int l, int r) {
   _quicksort(arr, lf + 1, r);
 }
 
-void quicksort(char* arr, int size) {
+static void quicksort(char* arr, int size) {
   srand(time(NULL));
   _quicksort(arr, 0, size - 1);
 }
 
-int is_unique(char* str) {
+static int is_unique(char* str) {
   int i;
   int len = strlen(str);
   char* copy = malloc(sizeof(char) * len);
