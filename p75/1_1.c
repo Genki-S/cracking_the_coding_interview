@@ -15,9 +15,14 @@ void _swap(char* a, char* b) {
 void _quicksort(char* arr, int l, int r) {
   if (!(l < r)) { return; }
 
-  int i;
-  char pivot = arr[r];
+  int pivot_i;
+  char pivot;
   int lf = l, rf = r - 1; // fingers
+
+  // select random pivot
+  pivot_i = rand() % (r - l) + l;
+  _swap(&(arr[pivot_i]), &(arr[r]));
+  pivot = arr[r];
 
   while (lf <= rf) {
     if (arr[lf] < pivot) {
@@ -34,6 +39,7 @@ void _quicksort(char* arr, int l, int r) {
 }
 
 void quicksort(char* arr, int size) {
+  srand(time(NULL));
   _quicksort(arr, 0, size - 1);
 }
 
