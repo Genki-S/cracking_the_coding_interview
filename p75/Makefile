@@ -1,5 +1,6 @@
 CC = gcc
-SRCS = $(wildcard *.c)
+LIBS = quicksort.c
+SRCS = $(wildcard 1_*.c)
 
 test:
-	@for f in $(SRCS); do $(CC) $$f -o a.out && ./a.out; done
+	@for f in $(SRCS); do $(CC) $$f $(LIBS) -o a.out && ./a.out; done
