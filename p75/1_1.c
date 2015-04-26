@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define STRING_MAX_LENGTH 1024
-
 static void _swap(char* a, char* b) {
   if (a == b) { return; }
   *a = (*a) ^ (*b);
