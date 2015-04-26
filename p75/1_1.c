@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define STRING_MAX_LENGTH 1024
 
@@ -43,6 +44,20 @@ void quicksort(char* arr, int size) {
   _quicksort(arr, 0, size - 1);
 }
 
+int is_unique(char* str) {
+  int i;
+  int len = strlen(str);
+  char* copy = malloc(sizeof(char) * len);
+  strcpy(copy, str);
+  quicksort(copy, len);
+  for (i = 1; copy[i] != '\0'; i++) {
+    if (copy[i] == copy[i-1]) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 int main(int argc, char const* argv[])
 {
 #define ARR_SIZE (100)
@@ -61,5 +76,12 @@ int main(int argc, char const* argv[])
   for (i = 0; i < ARR_SIZE; ++i) {
     assert(arr[i] == i);
   }
+
+  char* s1 = "crackingthecodinginterview";
+  assert(is_unique(s1) == 0);
+  char* s2 = "uniqstr";
+  assert(is_unique(s2) == 1);
+  char* s3 = "";
+  assert(is_unique(s3) == 1);
   return 0;
 }
