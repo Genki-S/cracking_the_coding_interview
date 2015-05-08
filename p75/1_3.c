@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 
@@ -14,12 +15,17 @@ static const int MAX_CHAR_KIND = 256;
 
 static int is_permutation(char* a, char* b) {
   int i;
-  int counters[MAX_CHAR_KIND] = {0};
+  int* counters;
   int len_a = strlen(a), len_b = strlen(b);
+
+  if ( NULL == (counters = calloc(MAX_CHAR_KIND, sizeof(int))) ) {
+    printf("malloc failed\n");
+    return(-1);
+  }
+
   if (len_a != len_b) {
     return 0;
   }
-
   for (i = 0; i < len_a; i++) {
     counters[a[i] - 'a']++;
   }
@@ -31,6 +37,8 @@ static int is_permutation(char* a, char* b) {
       return 0;
     }
   }
+
+  free(counters);
   return 1;
 }
 
