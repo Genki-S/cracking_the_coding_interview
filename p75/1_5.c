@@ -57,6 +57,10 @@ int main(int argc, char const* argv[])
   compress(s4, s);
   assert(strcmp(s, "a2b2c2d3") == 0);
 
+  char s5[] = "";
+  compress(s5, s);
+  assert(strcmp(s, "") == 0);
+
   free(s);
   return 0;
 }
