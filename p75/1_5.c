@@ -15,7 +15,7 @@ void compress(char* src, char* dst)
 
     if (src[i] != c) {
       dst[di++] = c;
-      dst[di++] = '0' + count;
+      di += sprintf(&(dst[di]), "%d", count);
       if (di >= len) {
         goto FAIL;
       }
@@ -60,6 +60,10 @@ int main(int argc, char const* argv[])
   char s5[] = "";
   compress(s5, s);
   assert(strcmp(s, "") == 0);
+
+  char s6[] = "aaaaaaaaaabbbbbbbbbbbbccc";
+  compress(s6, s);
+  assert(strcmp(s, "a10b12c3") == 0);
 
   free(s);
   return 0;
