@@ -26,4 +26,16 @@ for makefile in $makefiles ; do
   cd $root
 done
 
+# Go
+echo "=================================================="
+echo "Running Go tests..."
+echo "=================================================="
+dirs=$(find . -name '*_test.go' | xargs dirname | sort | uniq)
+for d in $dirs; do
+  cd $d
+  go test
+  if [ $? -ne 0 ]; then failures=$(( $failures + 1 )); fi
+  cd $root
+done
+
 exit $failures
