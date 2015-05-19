@@ -5,6 +5,7 @@
 
 void replace_spaces(char* str, int len)
 {
+  int i;
   int memsize = strlen(str) + 1;
   char* tmp_s;
   if ( NULL == (tmp_s = calloc(memsize, sizeof(char))) ) {
@@ -13,7 +14,7 @@ void replace_spaces(char* str, int len)
   }
 
   int s = 0;
-  for (int i = 0; i < len; ++i) {
+  for (i = 0; i < len; ++i) {
     if (str[i] == ' ') {
       tmp_s[s++] = '%';
       tmp_s[s++] = '2';
@@ -25,7 +26,7 @@ void replace_spaces(char* str, int len)
   assert(s == memsize - 1);
   tmp_s[s] = '\0';
 
-  for (int i = 0; i < memsize; ++i) {
+  for (i = 0; i < memsize; ++i) {
     str[i] = tmp_s[i];
   }
 
