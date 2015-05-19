@@ -2,6 +2,7 @@
 
 root="$(dirname $0)/.."
 cd $root
+root="$(pwd)"
 
 failures=0
 
@@ -22,6 +23,7 @@ for makefile in $makefiles ; do
   cd $(dirname $makefile)
   make test
   if [ $? -ne 0 ]; then failures=$(( $failures + 1 )); fi
+  cd $root
 done
 
 exit $failures
