@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func TestRemoveDuplicates(t *testing.T) {
+func removeDuplicatesTester(t *testing.T, targetFunc func(*list.List)) {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	MAX_N := 100
@@ -24,7 +24,7 @@ func TestRemoveDuplicates(t *testing.T) {
 		}
 	}
 
-	removeDuplicates(testList)
+	targetFunc(testList)
 
 	if testList.Len() != ansList.Len() {
 		t.Error("unexpected length")
@@ -38,4 +38,12 @@ func TestRemoveDuplicates(t *testing.T) {
 			t.Error("unexpected value")
 		}
 	}
+}
+
+func TestRemoveDuplicates(t *testing.T) {
+	removeDuplicatesTester(t, removeDuplicates)
+}
+
+func TestRemoveDuplicatesWithoutBuffer(t *testing.T) {
+	removeDuplicatesTester(t, removeDuplicatesWithoutBuffer)
 }

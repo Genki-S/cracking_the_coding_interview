@@ -17,3 +17,15 @@ func removeDuplicates(l *list.List) {
 		}
 	}
 }
+
+func removeDuplicatesWithoutBuffer(l *list.List) {
+	for e := l.Front(); e != nil; e = e.Next() {
+		for ee := e.Next(); ee != nil; ee = ee.Next() {
+			if ee.Value == e.Value {
+				prev := ee.Prev()
+				l.Remove(ee)
+				ee = prev
+			}
+		}
+	}
+}
