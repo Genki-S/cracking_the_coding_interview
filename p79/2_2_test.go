@@ -31,4 +31,9 @@ func TestGetReverseAt(t *testing.T) {
 			t.Error("Expected: %d, Actual: %d", exp, act)
 		}
 	}
+
+	act := getReverseAt(l, l.Len())
+	if act != nil {
+		t.Error("Expected: %d, Actual: %d", nil, act)
+	}
 }
