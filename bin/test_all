@@ -30,7 +30,7 @@ done
 echo "=================================================="
 echo "Running Go tests..."
 echo "=================================================="
-dirs=$(find . -name '*_test.go' | xargs dirname | sort | uniq)
+dirs=$(find . -name '*_test.go' | xargs -L1 dirname | sort | uniq)
 for d in $dirs; do
   cd $d
   go test
