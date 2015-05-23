@@ -1,4 +1,4 @@
-box: wercker/rvm
+box: hayamiz/rvm-golang@0.0.6
 build:
     steps:
         - rvm-use:
