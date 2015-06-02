@@ -21,13 +21,11 @@ func removeCenter(l *list.List) {
 	}
 
 	// cannot refer to unexported field or method
-	// p := e.prev
 	// n := e.next
-	// if p != nil {
-	// p.next = n
+	// if n == nil {
+	//   return
 	// }
-	// if n != nil {
-	// n.prev = p
-	// }
+	// e.Value = n.Value
+	// e.next = n.next
 	l.Remove(e)
 }
