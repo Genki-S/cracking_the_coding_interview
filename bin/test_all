@@ -33,8 +33,11 @@ echo "=================================================="
 dirs=$(find . -name '*_test.go' | xargs -L1 dirname | sort | uniq)
 for d in $dirs; do
   cd $d
-  go test
-  if [ $? -ne 0 ]; then failures=$(( $failures + 1 )); fi
+  files=$(find . -name '*_test.go')
+  for f in $files; do
+    go test $f ${f/_test/}
+    if [ $? -ne 0 ]; then failures=$(( $failures + 1 )); fi
+  done
   cd $root
 done
 
