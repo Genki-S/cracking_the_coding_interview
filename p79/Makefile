@@ -1,3 +1,7 @@
-test:
-	g++ 2_4.cpp -o a.out
-	./a.out
+EXES = 2_4.out 2_5.out
+
+all: $(EXES)
+
+%.out: %.cpp
+	g++ $< -o $@
+	./$@
