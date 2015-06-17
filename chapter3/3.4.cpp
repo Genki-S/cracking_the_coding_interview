@@ -32,7 +32,7 @@ void hanoi(stack<int> &a, stack<int> &b, stack<int> &c, int n) {
 int main()
 {
   srand(time(0));
-  const int MAX_N = 100;
+  const int MAX_N = 50;
   stack<int> a;
   int n = rand() % MAX_N;
   for (int i = 0; i < n; ++i) {
