@@ -27,11 +27,11 @@ class Node {
       bool all_balanced = true;
       int left_h = 0, right_h = 0;
       if (left != NULL) {
-        all_balanced ||= left->is_balanced();
+        all_balanced = all_balanced || left->is_balanced();
         left_h = left->height();
       }
       if (right != NULL) {
-        all_balanced ||= right->is_balanced();
+        all_balanced = all_balanced || right->is_balanced();
         right_h = right->height();
       }
       return abs(left_h - right_h) <= 1;
@@ -41,14 +41,14 @@ class Node {
 int main()
 {
   Node<int>* tree = new Node<int>(0);
-  assert(tree->is_flat() == true);
+  assert(tree->is_balanced() == true);
   Node<int>* n1 = new Node<int>(1);
   tree->left = n1;
-  assert(tree->is_flat() == true);
+  assert(tree->is_balanced() == true);
   Node<int>* n2 = new Node<int>(2);
   n1->right = n2;
-  assert(tree->is_flat() == false);
+  assert(tree->is_balanced() == false);
   Node<int>* n3 = new Node<int>(3);
   tree->right = n3;
-  assert(tree->is_flat() == true);
+  assert(tree->is_balanced() == true);
 }
