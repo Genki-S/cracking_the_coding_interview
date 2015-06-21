@@ -1,4 +1,4 @@
-EXES = 4.1.out
+EXES = 4.1.out 4.2.out
 
 test: $(EXES)
 
