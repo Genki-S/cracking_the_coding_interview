@@ -23,12 +23,15 @@ class Node {
       return ret;
     }
 
-    bool is_flat() {
+    bool is_balanced() {
+      bool all_balanced = true;
       int left_h = 0, right_h = 0;
       if (left != NULL) {
+        all_balanced ||= left->is_balanced();
         left_h = left->height();
       }
       if (right != NULL) {
+        all_balanced ||= right->is_balanced();
         right_h = right->height();
       }
       return abs(left_h - right_h) <= 1;
