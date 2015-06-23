@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <climits>
 using namespace std;
 
 class TreeNode {
@@ -13,15 +14,19 @@ class TreeNode {
     }
 };
 
-bool is_bst(TreeNode *root) {
+bool _is_bst(TreeNode *root, int min, int max) {
   if (root == NULL) { return true; }
-  if (root->left != NULL && (!is_bst(root->left) || root->left->value > root->value)) {
+  if (root->value < min || root->value >= max) {
     return false;
   }
-  if (root->right != NULL && (!is_bst(root->right) || root->right->value < root->value)) {
+  if (!_is_bst(root->left, min, root->value) || !_is_bst(root->right, root->value, max)) {
     return false;
   }
   return true;
+}
+
+bool is_bst(TreeNode *root) {
+  return _is_bst(root, INT_MIN, INT_MAX);
 }
 
 int main()
@@ -34,5 +39,12 @@ int main()
   tree->right->right = new TreeNode(11);
   assert(is_bst(tree) == true);
   tree->left->left = new TreeNode(12);
+  assert(is_bst(tree) == false);
+
+  tree = new TreeNode(20);
+  tree->left = new TreeNode(10);
+  tree->right = new TreeNode(30);
+  assert(is_bst(tree) == true);
+  tree->left->right = new TreeNode(25);
   assert(is_bst(tree) == false);
 }
