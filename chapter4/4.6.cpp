@@ -55,11 +55,17 @@ TreeNode* in_order_next_node(TreeNode* n) {
   if (n->parent->left == n) {
     return n->parent;
   }
-  if (n->parent->right == n) {
-    return n->parent->parent;
+
+  // this tree is right tree
+  TreeNode* _n = n->parent;
+  while (_n && _n->parent && _n->parent->right == _n) {
+    _n = _n->parent;
   }
-  assert(false);
-  return NULL;
+  if (_n->parent && _n->parent->left == _n) {
+    return _n->parent;
+  } else {
+    return NULL;
+  }
 }
 
 int main()
@@ -80,4 +86,5 @@ int main()
 
   assert(in_order_next_node(tree) == tree->right->left->left);
   assert(in_order_next_node(tree->left->left->left) == tree->left->left);
+  assert(in_order_next_node(tree->left->right->right) == tree);
 }
