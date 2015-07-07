@@ -1,4 +1,4 @@
-EXES = 5.1.out
+EXES = 5.1.out 5.2.out
 
 test: $(EXES)
 
