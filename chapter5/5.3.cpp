@@ -5,56 +5,71 @@
 using namespace std;
 typedef unsigned long long ULL;
 
-ULL same_bits_prev(ULL num) {
+const int BITSIZE = 32;
+
+int same_bits_prev(int num) {
   assert(num > 0);
-  if (num == (~0ULL)) { return ~0ULL; } // all 1 except sign
-  // move least significant 1 (after at least one occurence of 0) to right by 1 bit
-  ULL ret = num;
-  bool zero_found = false;
-  for (int i = 0; i < 64; ++i) {
-    if ((ret & (1ULL << i)) == 0) {
-      zero_found = true;
-    } else {
-      if (zero_found) {
-        ret = ret & ~(1ULL << i);
-        ret = ret | (1 << (i-1));
-        break;
-      }
-    }
+  // move least significant movable 1 to right, and move 1s to left as much as possible
+  int p = 0;
+  int c0 = 0, c1 = 0;
+  while (p < BITSIZE && (num & (1 << p)) != 0) {
+    c1++; p++;
   }
-  if (ret == num) { return ~(0ULL); }
-  return ret;
+  while (p < BITSIZE && (num & (1 << p)) == 0) {
+    c0++; p++;
+  }
+
+  if (p == 0 || p >= BITSIZE) {
+    return -1;
+  }
+  assert((num & (1 << p)) != 0);
+
+  // 1. clear 1s before p
+  num &= ~((1 << p) - 1);
+  // 2. subtract 1 and make all bits before p to 1
+  num -= 1;
+  // 3. fill c0-1 0s from right
+  num &= ~((1 << (c0-1)) - 1);
+
+  return num;
 }
 
-ULL same_bits_succ(ULL num) {
+int same_bits_succ(int num) {
   assert(num > 0);
-  if (num == (~0ULL)) { return ~0ULL; } // all 1 except sign
-  // move least significant 1 to left
-  bool one_found = false;
-  ULL ret = num;
-  for (int i = 0; i < 64; ++i) {
-    if ((ret & (1ULL << i)) != 0) {
-      one_found = true;
-    } else {
-      if (one_found) {
-        ret = ret & ~(1ULL << (i-1));
-        ret = ret | (1ULL << i);
-        break;
-      }
-    }
+  // move least significant movable 1 to left, and move 1s to right as much as possible
+  int p = 0;
+  int c0 = 0, c1 = 0;
+  while (p < BITSIZE && (num & (1 << p)) == 0) {
+    c0++; p++;
   }
-  if (ret == num) { return ~(0ULL); }
-  return ret;
+  while (p < BITSIZE && (num & (1 << p)) != 0) {
+    c1++; p++;
+  }
+
+  if (p == 0 || p >= BITSIZE) {
+    return -1;
+  }
+  assert((num & (1 << p)) == 0);
+
+  // 1. get 1 to the left
+  num |= (1 << p);
+  // 2. clear all bits before p
+  num &= ~((1 << p) - 1);
+  // 3. fill c1-1 1s from right
+  num |= (1 << (c1-1)) - 1;
+
+  return num;
 }
 
 int main() {
-  ULL bit = 0x1; // 0001
-  assert(same_bits_prev(bit) == ~(0ULL));
-  assert(same_bits_succ(bit) == 0x2);
+  int bit = 0x1; // 0001
+  // assert(same_bits_prev(bit) == ~(0));
+  // assert(same_bits_succ(bit) == 0x2);
   bit = 0x10; // 10000
-  assert(same_bits_prev(bit) == 0x8);
-  assert(same_bits_succ(bit) == 0x20);
-  bit = ~0ULL;
-  assert(same_bits_prev(bit) == ~(0ULL));
-  assert(same_bits_succ(bit) == ~(0ULL));
+  // assert(same_bits_prev(bit) == 0x8);
+  // assert(same_bits_succ(bit) == 0x20);
+  bit = 0x2783; // 10 0111 1000 0011 (p.239)
+  assert(same_bits_prev(bit) == 0x2770); // 10 0111 0111 0000
+  bit = 0x367C; // 11 0110 0111 1100 (p.236)
+  assert(same_bits_succ(bit) == 0x368F); // 11 0110 1000 1111
 }
